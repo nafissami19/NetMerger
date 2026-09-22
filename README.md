@@ -218,6 +218,6 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 Made by [Nafis Sami](https://github.com/nafissami19)
 
- **If NetMerger saved you time, its my pleasure**
+ **If NetMerger saved your time, its my pleasure**
 
 </div>
