@@ -1,0 +1,58 @@
+name: Release NetMerger
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build and package Windows binaries
+        run: npm run build:win
+
+      - name: Create GitHub Release and Upload Binaries
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/NetMerger 1.0.0.exe
+            dist/NetMerger Setup 1.0.0.exe
+            dist/NetMerger Setup 1.0.0.exe.blockmap
+          name: NetMerger ${{ github.ref_name }}
+          body: |
+            ### 🌐 NetMerger ${{ github.ref_name }}
+            
+            First official public release of **NetMerger** — a free, open-source download accelerator that combines multiple internet connections (Wi-Fi, Ethernet, Mobile USB Tethering) simultaneously for maximum download speed.
+            
+            #### 📦 Downloads:
+            - **`NetMerger 1.0.0.exe`**: Standalone portable version. Zero installation required, double-click to run anywhere.
+            - **`NetMerger Setup 1.0.0.exe`**: Full Windows installer with Start Menu and Desktop shortcuts.
+            
+            #### ⚡ Highlights:
+            - **100% Free & Zero Runtime AI**: Pure local systems networking with local TCP socket binding.
+            - **Multi-NIC Aggregation**: Combine broadband, Wi-Fi, Ethernet, and cellular 4G/5G USB tethering concurrently.
+            - **Universal Media Downloader**: Built-in local `yt-dlp` and `ffmpeg` engine for YouTube, TikTok, Reddit, X (Twitter), and direct parallel file slicing.
+            - **Plexo Telemetry**: Real-time bezier convergence flow chart, aggregate bandwidth counters, throughput wave chart, and signature 160-block live chunk matrix.
+            - **Crash-Resilient**: Chunk-level pause, resume, and retry recovery.
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
