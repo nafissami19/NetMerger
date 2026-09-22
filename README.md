@@ -216,8 +216,8 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 <div align="center">
 
-Made with ❤️ by [Nafis Sami](https://github.com/nafissami19)
+Made by [Nafis Sami](https://github.com/nafissami19)
 
-⭐ **If NetMerger saved you time, please star the repository!** ⭐
+ **If NetMerger saved you time, its my pleasure**
 
 </div>
