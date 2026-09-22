@@ -27,15 +27,16 @@ jobs:
         run: npm install
 
       - name: Build and package Windows binaries
-        run: npm run build:win
+        run: npm run build && npx electron-builder --win --publish never
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: false
 
       - name: Create GitHub Release and Upload Binaries
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            dist/NetMerger 1.0.0.exe
-            dist/NetMerger Setup 1.0.0.exe
-            dist/NetMerger Setup 1.0.0.exe.blockmap
+            dist/*.exe
+            dist/*.blockmap
           name: NetMerger ${{ github.ref_name }}
           body: |
             ### 🌐 NetMerger ${{ github.ref_name }}
